@@ -122,7 +122,6 @@ scipy==1.15.2
 scour==0.38.2
 screen-resolution-extra==0.0.0
 screenkey==1.5
--e git+https://github.com/chipsalliance/f4pga-sdf-timing.git@ea99ca85e086d1d1ffa70353328faedb6ba6bcc9#egg=sdf_timing
 SecretStorage==3.3.3
 setuptools==68.1.2
 setuptools-scm==8.2.0
