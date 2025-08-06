@@ -13,13 +13,15 @@ Each tool follows a structured contract and can be extended independently.
 Author: Aayush Gid
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
 from krivisio_tools.project_evaluation.main import run_estimation
 from krivisio_tools.report_generation.app.main import run_generation
+from krivisio_tools.talent_matcher.main import run_team_generation  # ✅ Import your core logic
+
 
 
 # Create FastMCP instance
@@ -131,6 +133,50 @@ def document_generation(input_data: DocumentGenerationInput) -> DocumentGenerati
         raise ValueError(f"Invalid input: {ve}")
     except Exception as e:
         raise RuntimeError(f"Document generation failed: {e}")
+
+
+# ----------------------------- Talent Matcher Tool -----------------------------
+
+class TalentMatchInput(BaseModel):
+    """
+    Input model for Talent Matching Tool
+
+    Attributes:
+        specsheet (dict): Project specification input.
+        candidates (list): List of available candidate profiles.
+    """
+    specsheet: Dict[str, Any] = Field(..., description="Project spec with requirements, e.g. tech stack, etc.")
+    candidates: List[Dict[str, Any]] = Field(..., description="List of candidate dictionaries")
+
+
+class TalentMatchOutput(BaseModel):
+    """
+    Output model for Talent Matching Tool
+
+    Attributes:
+        selected_team (list): Final selected team of candidates.
+    """
+    selected_team: List[Dict[str, Any]]
+
+
+@mcp.tool(description="Run talent matching to assign the best-fit team based on tech stack and manager score.")
+def match_talent(input_data: TalentMatchInput) -> TalentMatchOutput:
+    """
+    Match candidates to project requirements using talent matching logic.
+
+    Args:
+        input_data (TalentMatchInput): Contains specsheet and candidate pool.
+
+    Returns:
+        TalentMatchOutput: List of selected candidate dicts.
+    """
+    try:
+        team = run_team_generation(spec_data=input_data.specsheet, candidate_pool=input_data.candidates)
+        return TalentMatchOutput(
+            selected_team=[member.dict() for member in team]
+        )
+    except Exception as e:
+        raise RuntimeError(f"Talent matching failed: {e}")
 
 
 # ----------------------------- Server Runner -----------------------------
