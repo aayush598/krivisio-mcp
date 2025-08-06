@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """
-MCP Integration for Project Estimation Tool
+MCP Integration for Krivisio Tools
 
-Registers the project estimation engine as a tool within the MCP server.
-Supports dynamic algorithm dispatch such as COCOMO II and more.
+This server integrates multiple tools under the MCP (Modular Control Platform) environment.
+
+Tools Registered:
+- Project Estimation Tool (COCOMO II, etc.)
+- Report Generation Tool (Proposal generation and more)
+
+Each tool follows a structured contract and can be extended independently.
 
 Author: Aayush Gid
 """
@@ -14,10 +19,14 @@ from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
 from krivisio_tools.project_evaluation.main import run_estimation
+from krivisio_tools.report_generation.app.main import run_generation
+
 
 # Create FastMCP instance
-mcp = FastMCP("project-evaluation", host="0.0.0.0", port=8000)
+mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
 
+
+# ----------------------------- Project Estimation Tool -----------------------------
 
 class ProjectEstimationInput(BaseModel):
     """
@@ -69,6 +78,62 @@ def project_estimation(input_data: ProjectEstimationInput) -> ProjectEstimationO
     except Exception as e:
         raise RuntimeError(f"Estimation failed: {e}")
 
+
+# ----------------------------- Report Generation Tool -----------------------------
+
+class DocumentGenerationInput(BaseModel):
+    """
+    Request model for the report/document generation tool.
+
+    Attributes:
+        module (str): The module type (e.g., 'onboarding').
+        doc_type (str): The specific document type (e.g., 'proposal').
+        input_data (dict): The input data to render the template.
+    """
+    module: str = Field(..., description="Document module (e.g., 'onboarding')")
+    doc_type: str = Field(..., description="Document type to generate (e.g., 'proposal')")
+    input_data: Dict[str, Any] = Field(..., description="Input data for the selected document template")
+
+
+class DocumentGenerationOutput(BaseModel):
+    """
+    Response model for the document generation tool.
+
+    Attributes:
+        document (str): The rendered document content.
+    """
+    document: str
+
+
+@mcp.tool(description="Generate documents such as proposals using LLMs and pre-defined templates.")
+def document_generation(input_data: DocumentGenerationInput) -> DocumentGenerationOutput:
+    """
+    Dispatch document generation using the report generation module.
+
+    Args:
+        input_data (DocumentGenerationInput): Template metadata and content input.
+
+    Returns:
+        DocumentGenerationOutput: Final document content string.
+
+    Raises:
+        ValueError: If the module or doc_type is unsupported.
+        RuntimeError: If generation fails internally.
+    """
+    try:
+        result = run_generation(
+            module=input_data.module,
+            doc_type=input_data.doc_type,
+            input_data=input_data.input_data
+        )
+        return DocumentGenerationOutput(document=result)
+    except ValueError as ve:
+        raise ValueError(f"Invalid input: {ve}")
+    except Exception as e:
+        raise RuntimeError(f"Document generation failed: {e}")
+
+
+# ----------------------------- Server Runner -----------------------------
 
 if __name__ == "__main__":
     mcp.run(transport="sse")
