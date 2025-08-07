@@ -21,8 +21,8 @@ from pydantic import BaseModel, Field
 from krivisio_tools.project_evaluation.main import run_estimation
 from krivisio_tools.report_generation.app.main import run_generation
 from krivisio_tools.talent_matcher.main import run_team_generation  # ✅ Import your core logic
-
-
+from krivisio_tools.project_structure_generator.models.preferences import ProjectPreferences
+from krivisio_tools.project_structure_generator.core.agent import run_structure_generation_agent
 
 # Create FastMCP instance
 mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
@@ -177,6 +177,56 @@ def match_talent(input_data: TalentMatchInput) -> TalentMatchOutput:
         )
     except Exception as e:
         raise RuntimeError(f"Talent matching failed: {e}")
+
+
+class StructureGenerationInput(BaseModel):
+    """
+    Input model for folder structure generation tool.
+    
+    Attributes:
+        description (str): Short project description.
+        tech_stack (list): List of technologies used.
+        preferences (dict): Structure preferences.
+    """
+    description: str = Field(..., description="Brief project description.")
+    tech_stack: List[str] = Field(..., description="List of technologies, e.g., ['react', 'node']")
+    preferences: Dict[str, Any] = Field(..., description="Folder structure preferences")
+
+
+class StructureGenerationOutput(BaseModel):
+    """
+    Output model for folder structure generation tool.
+
+    Attributes:
+        structure (dict): Generated folder structure tree.
+    """
+    structure: Dict[str, Any]
+
+@mcp.tool(description="Generate folder structure from project description and preferences.")
+def folder_structure_generation(input_data: StructureGenerationInput) -> StructureGenerationOutput:
+    """
+    Run folder structure generation using project description, tech stack, and preferences.
+
+    Args:
+        input_data (StructureGenerationInput): Project metadata.
+
+    Returns:
+        StructureGenerationOutput: The generated folder tree.
+    """
+    try:
+        # Convert dict to ProjectPreferences dataclass
+        preferences = ProjectPreferences(**input_data.preferences)
+
+        structure = run_structure_generation_agent(
+            input_data.description,
+            input_data.tech_stack,
+            preferences
+        )
+
+        return StructureGenerationOutput(structure=structure)
+
+    except Exception as e:
+        raise RuntimeError(f"Folder structure generation failed: {e}")
 
 
 # ----------------------------- Server Runner -----------------------------

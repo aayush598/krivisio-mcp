@@ -162,3 +162,103 @@ OUTPUT
 }
 ```
 ----------
+
+# Folder structure generation 
+## INPUT
+```
+{
+  "description": "Chatbot project for customer service",
+  "tech_stack": ["html", "css", "javascript"],
+  "preferences": {
+    "include_docs": true,
+    "include_tests": true,
+    "include_docker": true,
+    "include_ci_cd": false,
+    "custom_folders": ["assets", "utils"],
+    "framework_specific": false
+  }
+}
+```
+## OUTPUT
+```
+{
+  "structure": {
+    "name": "chatbot-project",
+    "type": "folder",
+    "children": [
+      {
+        "name": "assets",
+        "type": "folder",
+        "children": []
+      },
+      {
+        "name": "utils",
+        "type": "folder",
+        "children": []
+      },
+      {
+        "name": "src",
+        "type": "folder",
+        "children": [
+          {
+            "name": "index.html",
+            "type": "file"
+          },
+          {
+            "name": "styles.css",
+            "type": "file"
+          },
+          {
+            "name": "app.js",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "docs",
+        "type": "folder",
+        "children": [
+          {
+            "name": "README.md",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "__tests__",
+        "type": "folder",
+        "children": [
+          {
+            "name": "app.test.js",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": ".dockerignore",
+        "type": "file"
+      },
+      {
+        "name": ".gitignore",
+        "type": "file"
+      },
+      {
+        "name": ".eslintrc.json",
+        "type": "file"
+      },
+      {
+        "name": ".prettierrc.json",
+        "type": "file"
+      },
+      {
+        "name": ".dockerignore",
+        "type": "file"
+      },
+      {
+        "name": "Dockerfile",
+        "type": "file"
+      }
+    ]
+  }
+}
+```
