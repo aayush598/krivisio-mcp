@@ -262,3 +262,70 @@ OUTPUT
   }
 }
 ```
+
+
+# Github tool
+
+## INPUT (Repo initialization)
+```
+{
+  "function": "init_repo",
+  "data": {
+    "token": "ghp_abc123",
+    "repo_name": "my-new-repo-52",
+    "private": true,
+    "description": "Test repo"
+  }
+}
+```
+
+## OUTPUT (Repo initialization)
+```
+{
+  "result": "https://github.com/aayush598/my-new-repo-52"
+}
+```
+
+## INPUT (Branch creation)
+```
+{
+  "function": "create_branch",
+  "data": {
+    "token": "ghp_abc123",
+    "repo_name": "aayush598/my-new-repo-52",
+    "new_branch": "dev",
+    "source_branch": "main"
+  }
+}
+```
+
+## OUTPUT (Branch creation)
+```
+{
+  "result": "refs/heads/dev"
+}
+```
+
+## INPUT (Code update)
+```
+{
+  "function": "update_repo",
+  "data": {
+    "token": "ghp_abc123",
+    "git_url": "https://github.com/aayush598/my-new-repo-52.git",
+    "branch": "main",
+    "files_to_update": [
+      ["README.md", "# Updated README"],
+      ["src/index.py", "print('Hello world')"]
+    ],
+    "commit_message": "Initial code push"
+  }
+}
+```
+
+## OUTPUT (Code update)
+```
+{
+  "result": "a2e3ffa2eb14089d5f299eaaf75d8eab52d955bf"
+}
+```

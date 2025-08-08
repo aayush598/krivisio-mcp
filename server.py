@@ -23,6 +23,8 @@ from krivisio_tools.report_generation.app.main import run_generation
 from krivisio_tools.talent_matcher.main import run_team_generation  # ✅ Import your core logic
 from krivisio_tools.project_structure_generator.models.preferences import ProjectPreferences
 from krivisio_tools.project_structure_generator.core.agent import run_structure_generation_agent
+from krivisio_tools.github.main import handle_github_action
+
 
 # Create FastMCP instance
 mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
@@ -227,6 +229,49 @@ def folder_structure_generation(input_data: StructureGenerationInput) -> Structu
 
     except Exception as e:
         raise RuntimeError(f"Folder structure generation failed: {e}")
+
+
+
+class GitHubToolInput(BaseModel):
+    """
+    Input model for GitHub Tool
+
+    Attributes:
+        function (str): The action to perform (init_repo, create_branch, update_repo).
+        data (dict): The input data required for that function.
+    """
+    function: str = Field(..., description="GitHub function to run: init_repo, create_branch, or update_repo.")
+    data: Dict[str, Any] = Field(..., description="Parameters required by the selected GitHub function.")
+
+
+class GitHubToolOutput(BaseModel):
+    """
+    Output model for GitHub Tool
+
+    Attributes:
+        result (Any): The result from the GitHub action.
+    """
+    result: Any
+
+
+@mcp.tool(description="GitHub automation: initialize repo, create branch, or update code.")
+def github_tool(input_data: GitHubToolInput) -> GitHubToolOutput:
+    """
+    Handles GitHub automation tasks like repo creation, branch management, and file updates.
+
+    Args:
+        input_data (GitHubToolInput): Function to run and its data.
+
+    Returns:
+        GitHubToolOutput: Result from the GitHub action.
+    """
+    try:
+        result = handle_github_action(input_data.dict())
+        return GitHubToolOutput(result=result)
+    except ValueError as ve:
+        raise ValueError(f"Input error: {ve}")
+    except Exception as e:
+        raise RuntimeError(f"GitHub tool execution failed: {e}")
 
 
 # ----------------------------- Server Runner -----------------------------
