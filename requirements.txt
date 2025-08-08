@@ -2,3 +2,4 @@ openai
 mcp[cli]
 PyGithub
 GitPython
+numpy
