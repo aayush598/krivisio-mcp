@@ -3,3 +3,5 @@ mcp[cli]
 PyGithub
 GitPython
 numpy
+PyPDF2
+python-docx
