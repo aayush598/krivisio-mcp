@@ -3,6 +3,7 @@
 from krivisio_tools.github.utils.init_repo import init_repo
 from krivisio_tools.github.utils.create_branch import create_branch
 from krivisio_tools.github.utils.update_repo import update_repo
+from krivisio_tools.github.utils.suggestions_techstack_features import process_document
 
 
 def handle_github_action(input_data: dict):
@@ -41,6 +42,13 @@ def handle_github_action(input_data: dict):
             files_to_update=data["files_to_update"],
             commit_message=data["commit_message"],
             token=data["token"]
+        )
+    
+    elif function == "process_document":
+        return process_document(
+            input_source=data["document_input"],
+            source_type=data["document_type"],
+            github_token=data["github_token"]
         )
 
     else:
