@@ -24,7 +24,7 @@ from krivisio_tools.talent_matcher.main import run_team_generation  # ✅ Import
 from krivisio_tools.project_structure_generator.models.preferences import ProjectPreferences
 from krivisio_tools.project_structure_generator.core.agent import run_structure_generation_agent
 from krivisio_tools.github.main import handle_github_action
-
+from krivisio_tools.side_tools.main import run_tool  
 
 # Create FastMCP instance
 mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
@@ -272,6 +272,53 @@ def github_tool(input_data: GitHubToolInput) -> GitHubToolOutput:
         raise ValueError(f"Input error: {ve}")
     except Exception as e:
         raise RuntimeError(f"GitHub tool execution failed: {e}")
+
+
+# ----------------------------- Side Tools (Unified Entry) -----------------------------
+
+from krivisio_tools.side_tools.main import run_tool  # ✅ Single entry point for all side_tools
+
+class SideToolInput(BaseModel):
+    """
+    Generic input model for running any side_tool.
+
+    Attributes:
+        tool (str): Name of the tool to run (must exist in side_tools TOOLS dict).
+        data (dict): Parameters required by the selected tool.
+    """
+    tool: str = Field(..., description="Tool name to run (as defined in side_tools TOOLS dict).")
+    data: Dict[str, Any] = Field(..., description="Input parameters for the selected tool.")
+
+
+class SideToolOutput(BaseModel):
+    """
+    Output model for side_tools execution.
+
+    Attributes:
+        result (Any): Output from the tool.
+    """
+    result: Any
+
+
+@mcp.tool(description="Run any tool from krivisio_tools.side_tools (COCOMO-II, future utilities, etc.).")
+def side_tools(input_data: SideToolInput) -> SideToolOutput:
+    """
+    Calls any registered side_tool from krivisio_tools.side_tools.main.
+
+    Args:
+        input_data (SideToolInput): Tool name and its parameters.
+
+    Returns:
+        SideToolOutput: Result from the executed tool.
+    """
+    try:
+        result = run_tool({
+            "tool": input_data.tool,
+            "data": input_data.data
+        })
+        return SideToolOutput(result=result)
+    except Exception as e:
+        raise RuntimeError(f"Side tool execution failed: {e}")
 
 
 # ----------------------------- Server Runner -----------------------------

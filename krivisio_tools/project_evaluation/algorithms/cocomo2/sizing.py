@@ -111,7 +111,7 @@ UFP_TO_SLOC: Dict[str, int] = {
     "Fourth Generation Language": 20, "High Level Language": 64,
     "HTML 3.0": 15, "Java": 53, "Jovial": 107, "Lisp": 64,
     "Machine Code": 640, "Modula 2": 80, "Pascal": 91, "PERL": 27,
-    "PowerBuilder": 16, "Prolog": 64, "Query – Default": 13,
+    "PowerBuilder": 16, "Prolog": 64, "Python:": 29,"Query – Default": 13,
     "Report Generator": 80, "Second Generation Language": 107,
     "Simulation – Default": 46, "Spreadsheet": 6,
     "Third Generation Language": 80, "Unix Shell Scripts": 107,

@@ -329,3 +329,74 @@ OUTPUT
   "result": "a2e3ffa2eb14089d5f299eaaf75d8eab52d955bf"
 }
 ```
+
+# Side tool
+## INPUT (cocomo2 parameters generation)
+```
+{
+  "tool": "cocomo2_parameters",
+  "data": {
+      "project_idea": "E-commerce site with AI recommendations",
+      "level": "intermediate",
+      "features": ["Login", "Shopping cart", "Payment gateway", "AI recommendations"],
+      "tech_stacks": ["Python", "Django", "React"]
+  }
+}
+```
+
+## OUTPUT (cocomo2 parameters generation)
+```
+{
+  "result": {
+    "function_points": {
+      "fp_items": [
+        {
+          "fp_type": "EI",
+          "det": 8,
+          "ftr_or_ret": 3
+        },
+        {
+          "fp_type": "EO",
+          "det": 10,
+          "ftr_or_ret": 5
+        },
+        {
+          "fp_type": "EQ",
+          "det": 7,
+          "ftr_or_ret": 4
+        },
+        {
+          "fp_type": "ILF",
+          "det": 15,
+          "ftr_or_ret": 1
+        },
+        {
+          "fp_type": "EIF",
+          "det": 12,
+          "ftr_or_ret": 2
+        }
+      ],
+      "language": "Python"
+    },
+    "reuse": {
+      "asloc": 2000,
+      "dm": 30,
+      "cm": 20,
+      "im": 15,
+      "su_rating": "N",
+      "aa_rating": "3",
+      "unfm_rating": "MF",
+      "at": 25
+    },
+    "revl": {
+      "new_sloc": 10000,
+      "adapted_esloc": 3000,
+      "revl_percent": 30
+    },
+    "effort_schedule": {
+      "sloc_ksloc": 10.5,
+      "sced_rating": "N"
+    }
+  }
+}
+```
