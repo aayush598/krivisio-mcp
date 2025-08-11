@@ -6,7 +6,8 @@ input_data = {
     "input_data": {
         "template_name": "proposal",
         "data": {
-            "project_name": "SmartEdu LMS",
+            "project_description": "Develop an interactive e-learning platform for remote education.",
+            "tech_stack": ["Python", "Django", "React"],
             "complexity_level": "Intermediate",
             "features": [
                 "User authentication and role management",

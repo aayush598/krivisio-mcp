@@ -11,7 +11,8 @@ from pydantic import BaseModel
 
 class ProposalTemplateInput(BaseModel):
     """Unified input schema for proposal prompt generation."""
-    project_name: str
+    project_description: str
+    tech_stack: List[str]
     complexity_level: str
     features: List[str]
     cocomo_results: Dict
@@ -29,7 +30,8 @@ def build_proposal_spec_prompt(data: ProposalTemplateInput) -> str:
     """
 
     # Extract relevant fields
-    name = data["project_name"]
+    project_description = data["project_description"]
+    tech_stack = data["tech_stack"]
     level = data["complexity_level"]
     features = data["features"]
     cocomo = data["cocomo_results"]["results"]
@@ -52,12 +54,17 @@ def build_proposal_spec_prompt(data: ProposalTemplateInput) -> str:
                 You are a senior technical project manager.
 
                 Create a comprehensive **project specification document** in **Markdown** format
-                for a software project named **{name}** with a **{level}** complexity level.
+                for a software project of description : {project_description} with a **{level}** complexity level.
 
                 ---
 
                 ### 🧩 Project Features
                 {formatted_features}
+
+                ---
+
+                ### 🛠️ Technology Stack
+                - **Tech Stack**: {tech_stack}
 
                 ---
 
