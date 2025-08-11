@@ -292,7 +292,7 @@
   "function": "create_branch",
   "data": {
     "token": "ghp_abc123",
-    "repo_name": "aayush598/my-new-repo-52",
+    "repo_name": "https://github.com/aayush598/my-new-repo-52",
     "new_branch": "dev",
     "source_branch": "main"
   }
