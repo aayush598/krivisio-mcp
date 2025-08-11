@@ -330,6 +330,220 @@ OUTPUT
 }
 ```
 
+
+## INPUT (Feature generation)
+```
+{
+  "function": "process_document",
+  "data": {
+    "document_input": "I need a Python web scraper project with more than 500 stars.",
+    "document_type": "text",
+    "github_token": "your_github_token_here"
+  }
+}
+```
+
+## OUTPUT (Feature generation)
+```
+{
+  "result": {
+    "search_params": {
+      "query": "Python web scraper",
+      "stars": ">500",
+      "token": "your_github_token_here"
+    },
+    "repos": [
+      {
+        "name": "autoscraper",
+        "full_name": "alirezamika/autoscraper",
+        "description": "A Smart, Automatic, Fast and Lightweight Web Scraper for Python",
+        "stars": 6887,
+        "language": "Python",
+        "html_url": "https://github.com/alirezamika/autoscraper"
+      },
+      {
+        "name": "crawlee-python",
+        "full_name": "apify/crawlee-python",
+        "description": "Crawlee—A web scraping and browser automation library for Python to build reliable crawlers. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with BeautifulSoup, Playwright, and raw HTTP. Both headful and headless mode. With proxy rotation.",
+        "stars": 6148,
+        "language": "Python",
+        "html_url": "https://github.com/apify/crawlee-python"
+      },
+      {
+        "name": "Automatic-Udemy-Course-Enroller-GET-PAID-UDEMY-COURSES-for-FREE",
+        "full_name": "aapatre/Automatic-Udemy-Course-Enroller-GET-PAID-UDEMY-COURSES-for-FREE",
+        "description": "Do you want to LEARN NEW STUFF for FREE? Don't worry, with the power of web-scraping and automation, this script will find the necessary Udemy coupons & enroll you for PAID UDEMY COURSES, ABSOLUTELY FREE!",
+        "stars": 3228,
+        "language": "Python",
+        "html_url": "https://github.com/aapatre/Automatic-Udemy-Course-Enroller-GET-PAID-UDEMY-COURSES-for-FREE"
+      },
+      {
+        "name": "scrapfly-scrapers",
+        "full_name": "scrapfly/scrapfly-scrapers",
+        "description": "Scalable Python web scraping scripts for +40 popular domains",
+        "stars": 594,
+        "language": "Python",
+        "html_url": "https://github.com/scrapfly/scrapfly-scrapers"
+      },
+      {
+        "name": "quick-start-guide",
+        "full_name": "oxylabs/quick-start-guide",
+        "description": "Python quick start guides to get the most out of Oxylabs' Web Scraper API free trial.",
+        "stars": 517,
+        "language": null,
+        "html_url": "https://github.com/oxylabs/quick-start-guide"
+      }
+    ],
+    "repo_features": {
+      "alirezamika/autoscraper": {
+        "features": [
+          "Automatic web scraping",
+          "Learns scraping rules automatically",
+          "Extracts similar elements from new URLs",
+          "Supports getting exact results",
+          "Supports custom requests parameters like proxies and headers",
+          "Can save and load the scraping model"
+        ],
+        "tech_stack": [
+          "Python",
+          "requests"
+        ]
+      },
+      "apify/crawlee-python": {
+        "features": [
+          "Unified interface for HTTP & headless browser crawling",
+          "Automatic parallel crawling based on available system resources",
+          "Written in Python with type hints",
+          "Automatic retries on errors or getting blocked",
+          "Integrated proxy rotation and session management",
+          "Configurable request routing",
+          "Persistent queue for URLs to crawl",
+          "Pluggable storage of both tabular data and files",
+          "Robust error handling"
+        ],
+        "tech_stack": [
+          "Python",
+          "BeautifulSoup",
+          "Playwright",
+          "HttpxHttpClient",
+          "Asyncio"
+        ]
+      },
+      "aapatre/Automatic-Udemy-Course-Enroller-GET-PAID-UDEMY-COURSES-for-FREE": {
+        "features": [
+          "Grab FREE Udemy Coupons",
+          "Enroll in paid Udemy courses for free",
+          "Web scraping for coupon links from multiple sources",
+          "Automated script to handle course enrollment process",
+          "CLI with various options for customization",
+          "Docker support for running the script"
+        ],
+        "tech_stack": [
+          "Python 3.8+",
+          "Selenium",
+          "REST API requests",
+          "Docker"
+        ]
+      },
+      "scrapfly/scrapfly-scrapers": {
+        "features": [
+          "Educational example scrapers for popular web scraping targets",
+          "Uses ScrapFly web scraping API and Python",
+          "Includes guides and sample datasets for each scraper",
+          "Regular updates and improvements by Scrapfly team"
+        ],
+        "tech_stack": [
+          "Python 3.10+",
+          "Scrapfly's Python SDK",
+          "Parsel",
+          "asyncio",
+          "JMESPath",
+          "nested-lookup",
+          "loguru"
+        ]
+      },
+      "oxylabs/quick-start-guide": {
+        "features": [
+          "One-week free trial of Web Scraper API",
+          "Setup guides for various types of websites",
+          "Basic code samples in Python",
+          "Web-based interface for testing API capabilities",
+          "AI-powered OxyCopilot feature for generating scraping and parsing codes"
+        ],
+        "tech_stack": [
+          "Python"
+        ]
+      }
+    },
+    "classified_features": {
+      "Basic": {
+        "features": [
+          "Educational example scrapers for popular web scraping targets",
+          "Includes guides and sample datasets for each scraper",
+          "Regular updates and improvements by Scrapfly team",
+          "One-week free trial of Web Scraper API",
+          "Setup guides for various types of websites",
+          "Basic code samples in Python",
+          "Web-based interface for testing API capabilities"
+        ],
+        "tech_stack": [
+          "Python"
+        ]
+      },
+      "Intermediate": {
+        "features": [
+          "Automatic web scraping",
+          "Learns scraping rules automatically",
+          "Extracts similar elements from new URLs",
+          "Supports getting exact results",
+          "Supports custom requests parameters like proxies and headers",
+          "Can save and load the scraping model",
+          "Grab FREE Udemy Coupons",
+          "Enroll in paid Udemy courses for free",
+          "Web scraping for coupon links from multiple sources",
+          "Automated script to handle course enrollment process",
+          "CLI with various options for customization",
+          "Docker support for running the script"
+        ],
+        "tech_stack": [
+          "Python 3.8+",
+          "Selenium",
+          "REST API requests",
+          "Docker"
+        ]
+      },
+      "Advanced": {
+        "features": [
+          "Unified interface for HTTP & headless browser crawling",
+          "Automatic parallel crawling based on available system resources",
+          "Written in Python with type hints",
+          "Automatic retries on errors or getting blocked",
+          "Integrated proxy rotation and session management",
+          "Configurable request routing",
+          "Persistent queue for URLs to crawl",
+          "Pluggable storage of both tabular data and files",
+          "Robust error handling"
+        ],
+        "tech_stack": [
+          "Python 3.10+",
+          "'Scrapfly's Python SDK'",
+          "'Parsel'",
+          "'asyncio'",
+          "'JMESPath'",
+          "'nested-lookup'",
+          "'loguru'",
+          "BeautifulSoup",
+          "Playwright",
+          "HttpxHttpClient",
+          "Asyncio"
+        ]
+      }
+    }
+  }
+}
+```
+
+
 # Side tool
 ## INPUT (cocomo2 parameters generation)
 ```
