@@ -1,12 +1,11 @@
 import json
 from krivisio_tools.side_tools.utils.llm_client import chat_with_llm, strip_code_fences
 
-def generate_cocomo2_parameters(project_idea: str, level: str, features: list[str], tech_stacks: list[str]) -> dict:
+def generate_cocomo2_parameters(level: str, features: list[str], tech_stacks: list[str]) -> dict:
     """
     Generate realistic COCOMO-II parameters based on project details, features, and tech stacks.
 
     Args:
-        project_idea (str): Short description of the project.
         level (str): Complexity level ("basic", "intermediate", "advanced").
         features (list[str]): List of key features to implement.
         tech_stacks (list[str]): List of technologies/languages to use.
@@ -23,7 +22,6 @@ You are a software estimation expert with deep knowledge of the COCOMO-II method
 Based on the project details below, generate realistic and consistent input parameters for ALL four COCOMO-II sections.
 
 **Project Details:**
-- Project Idea: {project_idea}
 - Complexity Level: {level}
 - Features:
 {features_text}
