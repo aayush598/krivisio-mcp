@@ -191,6 +191,7 @@ class StructureGenerationInput(BaseModel):
         preferences (dict): Structure preferences.
     """
     description: str = Field(..., description="Brief project description.")
+    features: List[str] = Field(..., description="List of project features.")
     tech_stack: List[str] = Field(..., description="List of technologies, e.g., ['react', 'node']")
     preferences: Dict[str, Any] = Field(..., description="Folder structure preferences")
 
@@ -221,6 +222,7 @@ def folder_structure_generation(input_data: StructureGenerationInput) -> Structu
 
         structure = run_structure_generation_agent(
             input_data.description,
+            input_data.features,
             input_data.tech_stack,
             preferences
         )

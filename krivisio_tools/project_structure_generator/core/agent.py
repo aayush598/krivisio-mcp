@@ -8,6 +8,7 @@ from krivisio_tools.project_structure_generator.services.validation_service impo
 
 def run_structure_generation_agent(
     project_description: str,
+    features: List[str],
     tech_stack: List[str],
     preferences: ProjectPreferences,
     use_cache: bool = True,
@@ -42,6 +43,7 @@ def run_structure_generation_agent(
     # Step 3: Generate structure
     structure = generate_directory_structure(
         project_description=project_description,
+        features=features,
         tech_stack=tech_stack,
         preferences=preferences,
         examples=examples

@@ -3,6 +3,7 @@ from krivisio_tools.project_structure_generator.models.preferences import Projec
 
 def build_prompt(
     project_description: str,
+    features: List[str],
     tech_stack: List[str],
     preferences: ProjectPreferences,
     similar_examples: List[Dict] = []
@@ -18,6 +19,10 @@ def build_prompt(
     # Project context
     prompt_lines.append("\n🧠 Project Overview:")
     prompt_lines.append(f"Description: {project_description.strip()}")
+    if features:
+        prompt_lines.append("Features:")
+        for feature in features:
+            prompt_lines.append(f"- {feature.strip()}")
     if tech_stack:
         tech_list = ", ".join(tech_stack)
         prompt_lines.append(f"Tech Stack: {tech_list}")

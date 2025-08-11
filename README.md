@@ -167,6 +167,7 @@
 ```
 {
   "description": "Chatbot project for customer service",
+  "features": ["user authentication", "real-time messaging", "file sharing"],
   "tech_stack": ["html", "css", "javascript"],
   "preferences": {
     "include_docs": true,

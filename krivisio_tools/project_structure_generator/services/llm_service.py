@@ -7,6 +7,7 @@ from krivisio_tools.project_structure_generator.utils.output_parser import parse
 
 def generate_directory_structure(
     project_description: str,
+    features: List[str],
     tech_stack: List[str],
     preferences: ProjectPreferences,
     examples: Optional[List[Dict]] = None
@@ -26,6 +27,7 @@ def generate_directory_structure(
     # 1. Build the prompt
     prompt = build_prompt(
         project_description=project_description,
+        features=features,
         tech_stack=tech_stack,
         preferences=preferences,
         similar_examples=examples or []
