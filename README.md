@@ -543,6 +543,47 @@
 }
 ```
 
+## INPUT (Setup folder structure)
+```
+{
+        "function": "setup_folder_structure",
+        "data": {
+            "github_token": "GITHUB_TOKEN",
+            "repo_name": "https://github.com/aayush598/test-repo-1754904075",
+            "structure": {
+                "name": "test",
+                "type": "folder",
+                "children": [
+                    {"name": "assets", "type": "folder", "children": []},
+                    {"name": "utils", "type": "folder", "children": []},
+                    {
+                        "name": "src",
+                        "type": "folder",
+                        "children": [
+                            {"name": "index.html", "type": "file"},
+                            {"name": "styles.css", "type": "file"},
+                            {"name": "app.js", "type": "file"}
+                        ]
+                    },
+                    {
+                        "name": "docs",
+                        "type": "folder",
+                        "children": [
+                            {"name": "README.md", "type": "file"}
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+```
+
+## OUTPUT (Setup folder structure)
+```
+{
+  "result": null
+}
+```
 
 # Side tool
 ## INPUT (cocomo2 parameters generation)

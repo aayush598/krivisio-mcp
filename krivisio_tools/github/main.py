@@ -4,7 +4,7 @@ from krivisio_tools.github.utils.init_repo import init_repo
 from krivisio_tools.github.utils.create_branch import create_branch
 from krivisio_tools.github.utils.update_repo import update_repo
 from krivisio_tools.github.utils.suggestions_techstack_features import process_document
-
+from krivisio_tools.github.utils.setup_folder_structure import setup_github_folder_structure
 
 def handle_github_action(input_data: dict):
     """
@@ -51,6 +51,13 @@ def handle_github_action(input_data: dict):
             github_token=data["github_token"]
         )
 
+    elif function == "setup_folder_structure":
+        return setup_github_folder_structure(
+            github_token=data["github_token"],
+            repo_name=data["repo_name"],
+            structure=data["structure"]
+        )
+    
     else:
         raise ValueError(f"Unsupported function: {function}")
 

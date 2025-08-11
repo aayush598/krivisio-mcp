@@ -1,14 +1,12 @@
 from krivisio_tools.github.main import handle_github_action
 from dotenv import load_dotenv
 import os
+import time
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Optional: Testing different inputs
 if __name__ == "__main__":
-    import time
-
     token = os.getenv("GITHUB_TOKEN")
     username = "aayush598"
     timestamp = int(time.time())
@@ -40,6 +38,42 @@ if __name__ == "__main__":
     print("Creating branch...")
     branch_ref = handle_github_action(branch_input)
     print(f"Branch created: {branch_ref}")
+
+    # 👇 Test folder structure setup
+    folder_structure_input = {
+        "function": "setup_folder_structure",
+        "data": {
+            "github_token": token,
+            "repo_name": f"https://github.com/{username}/{repo_name}",
+            "structure": {
+                "name": repo_name,
+                "type": "folder",
+                "children": [
+                    {"name": "assets", "type": "folder", "children": []},
+                    {"name": "utils", "type": "folder", "children": []},
+                    {
+                        "name": "src",
+                        "type": "folder",
+                        "children": [
+                            {"name": "index.html", "type": "file"},
+                            {"name": "styles.css", "type": "file"},
+                            {"name": "app.js", "type": "file"}
+                        ]
+                    },
+                    {
+                        "name": "docs",
+                        "type": "folder",
+                        "children": [
+                            {"name": "README.md", "type": "file"}
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+    print("Setting up folder structure...")
+    folder_setup_result = handle_github_action(folder_structure_input)
+    print(f"Folder structure created: {folder_setup_result}")
 
     # 👇 Test repo update
     update_input = {
