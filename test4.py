@@ -33,7 +33,7 @@ if __name__ == "__main__":
         "function": "create_branch",
         "data": {
             "token": token,
-            "repo_name": f"{username}/{repo_name}",
+            "repo_name": f"https://www.github.com/{username}/{repo_name}",
             "new_branch": "feature/test-branch"
         }
     }
