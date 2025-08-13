@@ -2,6 +2,7 @@
 
 from typing import Dict, Any
 from krivisio_tools.github.utils.llm_client import chat_with_llm
+import json
 
 
 def classify_features_and_tech_stack(repos_data: Dict[str, Dict[str, list]]) -> Dict[str, Any]:
@@ -71,7 +72,7 @@ def classify_features_and_tech_stack(repos_data: Dict[str, Dict[str, list]]) -> 
     raw_response = chat_with_llm(prompt)
 
     try:
-        data = eval(raw_response)  # You can replace with json.loads for safety
+        data = json.loads(raw_response)  # You can replace with json.loads for safety
         if not all(k in data for k in ["Basic", "Intermediate", "Advanced"]):
             raise ValueError("Missing required categories in output.")
         return data

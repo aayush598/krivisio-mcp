@@ -2,7 +2,7 @@
 
 from typing import Dict, Any
 from krivisio_tools.github.utils.llm_client import chat_with_llm
-
+import json
 
 def extract_search_params_from_text(
     extracted_text: str,
@@ -42,7 +42,7 @@ def extract_search_params_from_text(
     raw_response = chat_with_llm(prompt)
     
     try:
-        params = eval(raw_response)  # We can replace eval with json.loads if we trust JSON format
+        params = json.loads(raw_response)  # We can replace eval with json.loads if we trust JSON format
         if not isinstance(params, dict):
             raise ValueError("LLM output is not a dictionary.")
     except Exception as e:

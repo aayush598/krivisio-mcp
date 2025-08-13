@@ -3,7 +3,7 @@
 from typing import List, Dict
 from github import Github
 from krivisio_tools.github.utils.llm_client import chat_with_llm
-
+import json
 
 def get_readme_content(token: str, repo_full_name: str) -> str:
     """
@@ -57,7 +57,7 @@ def analyze_repo_with_llm(readme_content: str) -> Dict[str, List[str]]:
     raw_response = chat_with_llm(prompt)
 
     try:
-        data = eval(raw_response)  # You can replace with json.loads if strictly JSON
+        data = json.loads(raw_response)  # You can replace with json.loads if strictly JSON
         if not isinstance(data, dict) or "features" not in data or "tech_stack" not in data:
             raise ValueError("Invalid LLM output structure.")
         return data
