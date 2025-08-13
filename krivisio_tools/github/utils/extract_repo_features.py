@@ -4,6 +4,7 @@ from typing import List, Dict
 from github import Github
 from krivisio_tools.github.utils.llm_client import chat_with_llm
 import json
+from concurrent.futures import ThreadPoolExecutor
 
 def get_readme_content(token: str, repo_full_name: str) -> str:
     """
@@ -77,16 +78,15 @@ def extract_features_and_stack(token: str, repo_links: List[str]) -> Dict[str, D
         dict: Mapping of repo_full_name -> {'features': [...], 'tech_stack': [...]}
     """
     results = {}
-    for link in repo_links:
-        # Extract "username/repo" from link
-        try:
-            parts = link.rstrip("/").split("/")
-            repo_full_name = f"{parts[-2]}/{parts[-1]}"
-        except IndexError:
-            raise ValueError(f"Invalid GitHub repo link: {link}")
-
+    def process_repo(link):
+        parts = link.rstrip("/").split("/")
+        repo_full_name = f"{parts[-2]}/{parts[-1]}"
         readme_content = get_readme_content(token, repo_full_name)
         analysis = analyze_repo_with_llm(readme_content)
-        results[repo_full_name] = analysis
+        return repo_full_name, analysis
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        for repo_full_name, analysis in executor.map(process_repo, repo_links):
+            results[repo_full_name] = analysis
 
     return results
