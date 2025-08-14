@@ -11,7 +11,7 @@ if __name__ == "__main__":
     start_time = time.time()  # Record the start time
 
     result = process_document(
-        input_source="I need a Python web scraper project with more than 500 stars.",
+        input_source="I need a portfolio in html css.",
         source_type="text",
         github_token=os.getenv("GITHUB_TOKEN", "your_github_token_here")
     )

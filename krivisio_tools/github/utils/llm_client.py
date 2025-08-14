@@ -28,11 +28,11 @@ def strip_code_fences(text: str) -> str:
 
 def chat_with_llm(
     prompt: str,
-    model: str = "gpt-4o",
-    temperature: float = 0.7,
-    max_tokens: int = 800,
-    frequency_penalty: float = 0.3,
-    presence_penalty: float = 0.2,
+    model: str = "o4-mini",
+    # temperature: float = 0.7,
+    # max_completion_tokens: int = 800,
+    # frequency_penalty: float = 0.3,
+    # presence_penalty: float = 0.2,
     conversation_history: Optional[List[Dict[str, str]]] = None
 ) -> str:
     """
@@ -56,10 +56,10 @@ def chat_with_llm(
     response = client.chat.completions.create(
         model=model,
         messages=messages,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        frequency_penalty=frequency_penalty,
-        presence_penalty=presence_penalty
+        # temperature=temperature,
+        # max_completion_tokens=max_completion_tokens,
+        # frequency_penalty=frequency_penalty,
+        # presence_penalty=presence_penalty
     )
 
     raw_response = response.choices[0].message.content.strip()
