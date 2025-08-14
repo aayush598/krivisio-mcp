@@ -1,5 +1,3 @@
-# krivisio_tools/github/utils/extract_search_params.py
-
 from typing import Dict, Any
 from krivisio_tools.github.utils.llm_client import chat_with_llm
 import json
@@ -9,46 +7,55 @@ def extract_search_params_from_text(
     github_token: str
 ) -> Dict[str, Any]:
     """
-    Uses the LLM to parse extracted text and return search_repo parameters.
-
-    Args:
-        extracted_text (str): Raw text from a document or user input.
-        github_token (str): GitHub token to include in the result.
-
-    Returns:
-        dict: Parameters ready for search_repo.
+    Extracts only the search query and programming language category from text.
+    All other parameters are static defaults.
     """
+
     prompt = f"""
-    You are a system that extracts search parameters for finding GitHub repositories.
-    The extracted text will contain details about the type of project a user wants.
-    Your output must be a valid JSON dictionary with only these keys:
-    - query (string, required) — search keywords
-    - limit (integer, optional) — number of repositories to return
-    - category (string, optional) — programming language or topic
-    - stars (string, optional) — star filter, e.g. '>100' or '>=500'
-    - sort (string, optional) — 'stars', 'forks', or 'updated'
-    - order (string, optional) — 'asc' or 'desc'
+    You are a system that extracts ONLY:
+    - query (string) — the search keywords
+    - category (string) — the programming language or topic
 
-    Rules:
-    - If a field is not explicitly mentioned, omit it from the JSON.
-    - Ensure output is strictly JSON with no explanations.
+    The extracted text may describe what kind of GitHub project a user wants.
+    Your output must be strictly valid JSON with only these keys (omit if not found):
+    - query
+    - category
 
-    Extract parameters from the following text:
+    Extract from the following text:
     ---
     {extracted_text}
     ---
+
+    Output must be valid JSON with the structure:
+    {{
+        "query": "<query>",
+        "category": "<category>"
+    }}
+
+    Query must be such that it can be used in a GitHub search query.
+    Do not include small library or dependency names in the query.
+    Do not include multiple of the technology in the search query.
+    If required then use only one main technology in the query.
+    Category must be a programming language.
+
     """
 
     raw_response = chat_with_llm(prompt)
-    
+
     try:
-        params = json.loads(raw_response)  # We can replace eval with json.loads if we trust JSON format
+        params = json.loads(raw_response)
         if not isinstance(params, dict):
             raise ValueError("LLM output is not a dictionary.")
     except Exception as e:
         raise ValueError(f"Failed to parse LLM output: {e}\nOutput was: {raw_response}")
 
-    # Always add token
-    params["token"] = github_token
+    # Add static/default values
+    static_params = {
+        "limit": 3,
+        "stars": ">10",
+        "sort": "stars",
+        "order": "desc",
+        "token": github_token
+    }
 
-    return params
+    return {**params, **static_params}
