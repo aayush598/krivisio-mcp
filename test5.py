@@ -1,4 +1,4 @@
-from krivisio_tools.file.utils.extract_text import extract_text
+from krivisio_tools.report_generation.app.utils.doc_formatter import
 
 # From raw text
 print(extract_text("Hello, world!", "text"))

@@ -6,10 +6,10 @@ Includes preprocessing for prompt outputs.
 import re
 from typing import List, Dict, Optional
 from openai import OpenAI
-from krivisio_tools.report_generation.app.core.config import OPENAI_API_KEY
+from krivisio_tools.report_generation.app.core.config import KRIVISIO_STRUCTURE_GENERATION_TOOL
 
 # Initialize OpenAI client once
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = OpenAI(api_key=KRIVISIO_STRUCTURE_GENERATION_TOOL)
 
 
 def strip_code_fences(text: str) -> str:
