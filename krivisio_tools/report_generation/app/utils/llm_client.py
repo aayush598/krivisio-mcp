@@ -23,7 +23,12 @@ def strip_code_fences(text: str) -> str:
         str: Cleaned text without code fences.
     """
     pattern = r"```(?:json|python|markdown|sh|text)?\s*([\s\S]*?)```"
-    return re.sub(pattern, lambda m: m.group(1).strip(), text, flags=re.IGNORECASE)
+    text = text.strip()
+    text = re.sub(pattern, lambda m: m.group(1).strip(), text, flags=re.IGNORECASE)
+    
+    if text.startswith("```markdown"):
+        text = text[len("```markdown"):].strip()
+    return text
 
 
 def chat_with_llm(
