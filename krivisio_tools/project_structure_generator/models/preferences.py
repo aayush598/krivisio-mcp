@@ -6,8 +6,8 @@ class ProjectPreferences:
     """
     Data class to hold user preferences for directory structure generation.
     """
-    include_docs: bool = True
-    include_tests: bool = True
+    include_docs: bool = False
+    include_tests: bool = False
     include_docker: bool = False
     include_ci_cd: bool = False
     custom_folders: List[str] = field(default_factory=list)

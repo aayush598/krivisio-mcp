@@ -34,7 +34,7 @@ def build_proposal_spec_prompt(data: ProposalTemplateInput) -> str:
     tech_stack = data["tech_stack"]
     level = data["complexity_level"]
     features = data["features"]
-    cocomo = data["cocomo_results"]["results"]
+    cocomo = data["cocomo_results"]
 
     # Extract COCOMO estimation details safely with defaults
     sloc = cocomo.get("function_points", {}).get("sloc", "N/A")
