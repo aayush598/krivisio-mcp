@@ -1,15 +1,8 @@
-from tools import tool1
-
-from models import (
-    ProjectEstimationInput, ProjectEstimationOutput,
-    DocumentGenerationInput, DocumentGenerationOutput,
-    TalentMatchInput, TalentMatchOutput,
-    StructureGenerationInput, StructureGenerationOutput,
-    GitHubToolInput, GitHubToolOutput,
-    SideToolInput, SideToolOutput
-)
-
+from tools import tool1, tool2
+from typing import Dict
+import json
 from mcp.server.fastmcp import FastMCP
+from models import ProjectPipelineWrapper, ProjectPipelineOutput
 
 # Create FastMCP instance
 mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
@@ -17,10 +10,14 @@ mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
 
 # ------------------ Tool 1: Feature suggestions ------------------
 @mcp.tool(description="Automate GitHub tasks: init repo, branch, update repo.")
-def feature_generation(input_data):
+def feature_generation(input_data: Dict) -> Dict:
     return tool1(input_data)
 
-
+# ------------------ Tool 2: Project Estimation + Proposal + Structure ------------------
+@mcp.tool(description="Run project evaluation pipeline: cocomo params, estimation, proposal, folder structure.")
+def project_pipeline(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
+    output = tool2(input_data)
+    return output
 
 # ----------------------------- Server Runner -----------------------------
 

@@ -148,3 +148,32 @@ class SideToolOutput(BaseModel):
         result (Any): Output from the tool.
     """
     result: Any
+
+class ProjectPipelineInput(BaseModel):
+    tool: str = Field(..., description="Tool identifier, e.g. 'cocomo2_parameters'")
+    project_description: str = Field(..., description="Brief description of the project")
+
+    class DataModel(BaseModel):
+        level: str = Field(..., description="Project complexity level (e.g. beginner, intermediate, advanced)")
+        features: List[str] = Field(..., description="List of features for the project")
+        tech_stacks: List[str] = Field(..., description="Technology stack used in the project")
+
+    class PreferencesModel(BaseModel):
+        include_docs: bool = False
+        include_tests: bool = False
+        include_docker: bool = False
+        include_ci_cd: bool = False
+        custom_folders: List[str] = []
+        framework_specific: bool = False
+
+    data: DataModel
+    preferences: PreferencesModel
+
+class ProjectPipelineWrapper(BaseModel):
+    """Wrapper to match the JSON structure where everything is under 'input_data'"""
+    input_data: ProjectPipelineInput
+    
+# ------------------ Output Model ------------------
+class ProjectPipelineOutput(BaseModel):
+    proposal_document: str = Field(..., description="Generated proposal document content")
+    structure: Dict[str, Any]
