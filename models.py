@@ -1,5 +1,5 @@
 from typing import Dict, Any, List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 
 
 # ----------------------------- Project Estimation Tool -----------------------------
@@ -103,18 +103,42 @@ class StructureGenerationOutput(BaseModel):
     structure: Dict[str, Any]
 
 # ----------------------------- GitHub Tool -----------------------------
-
 class GitHubToolInput(BaseModel):
     """
     Input model for GitHub Tool
 
-    Attributes:
-        function (str): The action to perform (init_repo, create_branch, update_repo).
-        data (dict): The input data required for that function.
-    """
-    function: str = Field(..., description="GitHub function to run: init_repo, create_branch, or update_repo.")
-    data: Dict[str, Any] = Field(..., description="Parameters required by the selected GitHub function.")
+    Accepts BOTH:
+      1) Old format: {"function": "process_document", "data": {...}}
+      2) New format (data-only): {"document_input": "...", "document_type": "...", "github_token": ...}
 
+    In case (2), it is coerced to case (1) with function="process_document".
+    """
+    function: str = Field(
+        "process_document",
+        description="GitHub function to run: init_repo, create_branch, update_repo, or process_document."
+    )
+    data: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Parameters required by the selected GitHub function."
+    )
+
+    @root_validator(pre=True)
+    def coerce_new_or_partial_formats(cls, values: Dict[str, Any]) -> Dict[str, Any]:
+        # If it's already old format, pass through.
+        if "function" in values and "data" in values:
+            return values
+
+        # If it's partial old format (has data but no function), assume process_document.
+        if "data" in values and "function" not in values:
+            return {"function": "process_document", "data": values["data"]}
+
+        # If it's the new data-only format (no 'function'/'data' keys), wrap it.
+        if "function" not in values and "data" not in values:
+            # Treat entire dict as the "data" payload.
+            return {"function": "process_document", "data": values}
+
+        # Fallback: leave as-is (Pydantic will validate)
+        return values
 
 class GitHubToolOutput(BaseModel):
     """
