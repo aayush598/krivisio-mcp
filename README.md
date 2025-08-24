@@ -2,13 +2,11 @@
 ## INPUT
 ```
 {
-        "function": "process_document",
-        "data": {
-            "document_input": "I need a Python web scraper project with more than 500 stars.",
-            "document_type": "text",
-            "github_token": os.getenv("GITHUB_TOKEN")
-        }
-    }
+  "project_description": "I need a Python web scraper project with more than 500 stars.",
+  "input_format": "text",
+  "github_access_token": "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"
+}
+
 ```
 
 ## OUTPUT

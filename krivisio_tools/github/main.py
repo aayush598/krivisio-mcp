@@ -46,9 +46,9 @@ def handle_github_action(input_data: dict):
     
     elif function == "process_document":
         return process_document(
-            input_source=data["document_input"],
-            source_type=data["document_type"],
-            github_token=data["github_token"]
+            input_source=data["project_description"],
+            source_type=data["input_format"],
+            github_token=data["github_access_token"]
         )
 
     elif function == "setup_folder_structure":

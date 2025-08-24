@@ -109,7 +109,7 @@ class GitHubToolInput(BaseModel):
 
     Accepts BOTH:
       1) Old format: {"function": "process_document", "data": {...}}
-      2) New format (data-only): {"document_input": "...", "document_type": "...", "github_token": ...}
+      2) New format (data-only): {"project_description": "...", "input_format": "...", "github_access_token": ...}
 
     In case (2), it is coerced to case (1) with function="process_document".
     """
