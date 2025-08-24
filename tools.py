@@ -50,23 +50,13 @@ def tool1(input_data: Union[GitHubToolInput, Dict[str, Any]]) -> GitHubToolOutpu
 
 
 def tool2(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
-   # Get the inner model
-   inner: ProjectPipelineInput = input_data.input_data
+
+   project_description = input_data.pop("project_description")
+   preferences = input_data.pop("preferences")
+   input_data = input_data
 
 
-   # JSON string (Pydantic v2)
-   input_json = inner.model_dump_json(indent=2)
-
-
-   input_json = json.loads(input_json)
-
-
-   project_description = input_json.pop("project_description")
-   preferences = input_json.pop("preferences")
-   input_json = input_json
-
-
-   cocomo_parameters = run_tool(input_json)
+   cocomo_parameters = run_tool(input_data)
 
 
    project_evaluation_data = run_estimation(model_name="cocomo2", data=cocomo_parameters)
@@ -74,9 +64,9 @@ def tool2(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
 
    proposal_input = {
        "project_description": project_description,
-       "tech_stack": input_json["data"]["tech_stacks"],
-       "complexity_level" : input_json["data"]["level"],
-       "features" : input_json["data"]["features"],
+       "tech_stack": input_data["data"]["tech_stacks"],
+       "complexity_level" : input_data["data"]["level"],
+       "features" : input_data["data"]["features"],
        "cocomo_results" : project_evaluation_data,
    }
    proposal_document = run_generation(
@@ -96,14 +86,14 @@ def tool2(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
    )
    structure = run_structure_generation_agent(
            project_description,
-           input_json["data"]["features"],
-           input_json["data"]["tech_stacks"],
+           input_data["data"]["features"],
+           input_data["data"]["tech_stacks"],
            preferences
        )
 
 
    return {"proposal_document":proposal_document,
-           "structure":structure}
+           "folder_structure":structure}
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ def generate_project_features(input_data: Dict) -> Dict:
 
 # ------------------ Tool 2: Project Estimation + Proposal + Structure ------------------
 @mcp.tool(description="Run project evaluation pipeline: cocomo params, estimation, proposal, folder structure.")
-def generate_project_proposal(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
+def generate_project_proposal(input_data: Dict) -> Dict:
    output = tool2(input_data)
    return output
 
