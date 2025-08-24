@@ -36,6 +36,12 @@ def tool1(input_data: Union[GitHubToolInput, Dict[str, Any]]) -> GitHubToolOutpu
         }
 
         result = handle_github_action(old_format_payload)
+        result = result["classified_features"]
+
+        print("="*100)
+        print(result)
+        print("="*100)
+
         log.info("GitHub action completed successfully", extra={"extra_data": {"tool": "tool1"}})
         return result
     except Exception as e:

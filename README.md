@@ -4,7 +4,7 @@
 {
   "project_description": "I need a Python web scraper project with more than 500 stars.",
   "input_format": "text",
-  "github_access_token": "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"
+  "github_access_token": "<GITHUB_ACCESS_TOKEN>"
 }
 
 ```
@@ -13,182 +13,63 @@
 ```
 {
   "result": {
-    "search_params": {
-      "query": "web scraper stars:>500",
-      "category": "Python",
-      "limit": 3,
-      "stars": ">10",
-      "sort": "stars",
-      "order": "desc",
-      "token": "os.getenv("GITHUB_TOKEN")"
+    "Basic": {
+      "features": [
+        "Automatic extraction of target data from web pages based on a list of example values",
+        "Support for retrieving similar elements across multiple pages",
+        "Exact-value scraping for dynamic content",
+        "Accepts both URLs and raw HTML as input",
+        "Custom HTTP request options (proxies, headers, etc.)",
+        "Save and load scraper models for reuse"
+      ],
+      "tech_stack": [
+        "Python 3",
+        "requests",
+        "pip",
+        "Git / GitHub",
+        "PyPI",
+        "Flask (optional integration)"
+      ]
     },
-    "repos": [
-      {
-        "name": "crawl4ai",
-        "full_name": "unclecode/crawl4ai",
-        "description": "🚀🤖 Crawl4AI: Open-source LLM Friendly Web Crawler & Scraper. Don't be shy, join here: https://discord.gg/jP8KfhDhyN",
-        "stars": 51392,
-        "language": "Python",
-        "html_url": "https://github.com/unclecode/crawl4ai"
-      },
-      {
-        "name": "autoscraper",
-        "full_name": "alirezamika/autoscraper",
-        "description": "A Smart, Automatic, Fast and Lightweight Web Scraper for Python",
-        "stars": 6899,
-        "language": "Python",
-        "html_url": "https://github.com/alirezamika/autoscraper"
-      },
-      {
-        "name": "crawlee-python",
-        "full_name": "apify/crawlee-python",
-        "description": "Crawlee—A web scraping and browser automation library for Python to build reliable crawlers. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with BeautifulSoup, Playwright, and raw HTTP. Both headful and headless mode. With proxy rotation.",
-        "stars": 6188,
-        "language": "Python",
-        "html_url": "https://github.com/apify/crawlee-python"
-      }
-    ],
-    "repo_features": {
-      "unclecode/crawl4ai": {
-        "features": [
-          "AI-friendly Markdown generation with citations and customizable strategies",
-          "Structured data extraction via LLM-driven chunking, CSS/XPath selectors, and schema definitions",
-          "Managed browser integration with session, proxy, and profile support across Chromium, Firefox, and WebKit",
-          "Dynamic crawling and scraping including JS execution, lazy-load handling, infinite scroll, media extraction, and screenshots",
-          "Full control and customization through CLI, user scripts, hooks, and adaptive site-pattern learning",
-          "Docker and API deployment with FastAPI server, JWT authentication, and cloud-friendly configurations"
-        ],
-        "tech_stack": [
-          "Python",
-          "AsyncIO",
-          "Playwright",
-          "Selenium (sync support)",
-          "FastAPI",
-          "Docker",
-          "Pydantic",
-          "BM25 algorithm",
-          "Cosine similarity (scikit-learn)",
-          "OpenAI API (via litellm)",
-          "Command-line interface (CLI)"
-        ]
-      },
-      "alirezamika/autoscraper": {
-        "features": [
-          "Automatic web scraping based on provided sample data",
-          "Learns extraction rules to retrieve similar elements across pages",
-          "Supports both similar result scraping and exact result scraping",
-          "Accepts either a URL or raw HTML content as input",
-          "Allows customizable request parameters (proxies, headers, etc.)",
-          "Model persistence with save and load functionality",
-          "Lightweight, fast, and easy to integrate"
-        ],
-        "tech_stack": [
-          "Python 3",
-          "pip",
-          "setuptools",
-          "requests",
-          "Git (GitHub)",
-          "PyPI"
-        ]
-      },
-      "apify/crawlee-python": {
-        "features": [
-          "Unified interface for HTTP and headless browser crawling",
-          "Automatic parallel crawling based on system resources",
-          "Written in Python with full type hints",
-          "Automatic retries on errors or when blocked",
-          "Integrated proxy rotation and session management",
-          "Configurable request routing",
-          "Persistent URL queue",
-          "Pluggable storage for tabular data and files",
-          "Robust error handling",
-          "Asyncio-based architecture",
-          "Simple integration as regular Python scripts",
-          "State persistence across interruptions",
-          "Organized multi-type data storage"
-        ],
-        "tech_stack": [
-          "Python",
-          "asyncio",
-          "type hints (PEP 484)",
-          "HTTPX",
-          "BeautifulSoup4",
-          "Playwright",
-          "Crawlee CLI (uv)",
-          "PyPI packaging",
-          "Apify platform"
-        ]
-      }
+    "Intermediate": {
+      "features": [
+        "Unified interface for HTTP crawling and headless browser automation",
+        "Automatic parallel crawling with retries and robust error handling",
+        "Asyncio-based Python implementation with type hints for better developer experience",
+        "Integrated proxy rotation, session management, and state persistence",
+        "Configurable request routing and persistent URL queue",
+        "Pluggable storage for tabular data and files (datasets, key-value stores)",
+        "Simple integration as regular Python scripts"
+      ],
+      "tech_stack": [
+        "Python",
+        "Asyncio",
+        "BeautifulSoup4",
+        "HTTPX",
+        "Playwright",
+        "uv CLI"
+      ]
     },
-    "classified_features": {
-      "Basic": {
-        "features": [
-          "Automatic web scraping based on provided sample data",
-          "Learns extraction rules to retrieve similar elements across pages",
-          "Supports both similar result scraping and exact result scraping",
-          "Accepts either a URL or raw HTML content as input",
-          "Allows customizable request parameters (proxies, headers, etc.)",
-          "Model persistence with save and load functionality",
-          "Lightweight, fast, and easy to integrate",
-          "Written in Python with full type hints",
-          "Simple integration as regular Python scripts"
-        ],
-        "tech_stack": [
-          "Python",
-          "Command-line interface (CLI)",
-          "Python 3",
-          "pip",
-          "setuptools",
-          "requests",
-          "Git (GitHub)",
-          "PyPI",
-          "BeautifulSoup4",
-          "PyPI packaging"
-        ]
-      },
-      "Intermediate": {
-        "features": [
-          "Unified interface for HTTP and headless browser crawling",
-          "Automatic parallel crawling based on system resources",
-          "Automatic retries on errors or when blocked",
-          "Integrated proxy rotation and session management",
-          "Configurable request routing",
-          "Persistent URL queue",
-          "Pluggable storage for tabular data and files",
-          "Robust error handling",
-          "Asyncio-based architecture",
-          "State persistence across interruptions",
-          "Organized multi-type data storage"
-        ],
-        "tech_stack": [
-          "AsyncIO",
-          "asyncio",
-          "Playwright",
-          "Selenium (sync support)",
-          "FastAPI",
-          "Docker",
-          "Pydantic",
-          "Cosine similarity (scikit-learn)",
-          "type hints (PEP 484)",
-          "HTTPX",
-          "Crawlee CLI (uv)"
-        ]
-      },
-      "Advanced": {
-        "features": [
-          "AI-friendly Markdown generation with citations and customizable strategies",
-          "Structured data extraction via LLM-driven chunking, CSS/XPath selectors, and schema definitions",
-          "Managed browser integration with session, proxy, and profile support across Chromium, Firefox, and WebKit",
-          "Dynamic crawling and scraping including JS execution, lazy-load handling, infinite scroll, media extraction, and screenshots",
-          "Full control and customization through CLI, user scripts, hooks, and adaptive site-pattern learning",
-          "Docker and API deployment with FastAPI server, JWT authentication, and cloud-friendly configurations"
-        ],
-        "tech_stack": [
-          "BM25 algorithm",
-          "OpenAI API (via litellm)",
-          "Apify platform"
-        ]
-      }
+    "Advanced": {
+      "features": [
+        "LLM-ready Markdown output with smart filtering and citations",
+        "Fast asynchronous browser-based crawling with caching and concurrency",
+        "Full control over sessions, proxies, cookies, user scripts and hooks",
+        "Adaptive intelligence that learns site patterns and focuses extraction",
+        "Deployable anywhere via CLI, Docker image or scalable FastAPI server"
+      ],
+      "tech_stack": [
+        "Python",
+        "asyncio",
+        "Playwright",
+        "Selenium (sync mode, deprecated)",
+        "FastAPI",
+        "Docker",
+        "Pydantic",
+        "BM25 content-filtering",
+        "CSS/XPath selectors",
+        "JWT authentication"
+      ]
     }
   }
 }
