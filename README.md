@@ -204,28 +204,22 @@
   "input_data": {
     "tool": "cocomo2_parameters",
     "data": {
-      "level": "intermediate",
+      "level": "basic",
       "features": [
-        "Login",
-        "Shopping cart",
-        "Payment gateway",
-        "AI recommendations"
+        "chatbot"
       ],
       "tech_stacks": [
-        "Python",
-        "Django",
-        "React"
+        "python"
       ]
     },
-    "project_description": "Chatbot project for customer service",
+    "project_description": "chatbot",
     "preferences": {
       "include_docs": false,
       "include_tests": false,
       "include_docker": false,
       "include_ci_cd": false,
       "custom_folders": [
-        "assets",
-        "utils"
+        "assets"
       ],
       "framework_specific": false
     }

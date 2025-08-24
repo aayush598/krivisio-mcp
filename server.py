@@ -22,13 +22,13 @@ mcp = FastMCP("krivisio-tools", host="0.0.0.0", port=8000)
 
 # ------------------ Tool 1: Feature suggestions ------------------
 @mcp.tool(description="Automate GitHub tasks: init repo, branch, update repo.")
-def feature_generation(input_data: Dict) -> Dict:
+def generate_project_features(input_data: Dict) -> Dict:
    return tool1(input_data)
 
 
 # ------------------ Tool 2: Project Estimation + Proposal + Structure ------------------
 @mcp.tool(description="Run project evaluation pipeline: cocomo params, estimation, proposal, folder structure.")
-def project_pipeline(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
+def generate_project_proposal(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
    output = tool2(input_data)
    return output
 
