@@ -7,7 +7,7 @@ from krivisio_tools.project_structure_generator.models.preferences import Projec
 
 
 from models import GitHubToolInput, GitHubToolOutput, ProjectPipelineWrapper, ProjectPipelineInput, ProjectPipelineOutput
-
+from typing import Union, Dict, Any
 
 import json
 
@@ -23,15 +23,24 @@ from logger import get_logger
 log = get_logger(__name__)
 
 
-def tool1(input_data: GitHubToolInput) -> GitHubToolOutput:
-   log.info("Starting GitHub action handler", extra={"extra_data": {"tool": "tool1"}})
-   try:
-       result = handle_github_action(input_data)
-       log.info("GitHub action completed successfully", extra={"extra_data": {"tool": "tool1"}})
-       return result
-   except Exception as e:
-       log.exception(f"GitHub action failed with error : {e}", extra={"extra_data": {"tool": "tool1"}})
-       raise
+def tool1(input_data: Union[GitHubToolInput, Dict[str, Any]]) -> GitHubToolOutput:
+    log.info("Starting GitHub action handler", extra={"extra_data": {"tool": "tool1"}})
+    try:
+        # Normalize any incoming format to the canonical (old) format via the model
+        normalized = GitHubToolInput.parse_obj(input_data)
+
+        # Create the exact old-format payload expected downstream
+        old_format_payload: Dict[str, Any] = {
+            "function": normalized.function,
+            "data": normalized.data,
+        }
+
+        result = handle_github_action(old_format_payload)
+        log.info("GitHub action completed successfully", extra={"extra_data": {"tool": "tool1"}})
+        return result
+    except Exception as e:
+        log.exception(f"GitHub action failed with error : {e}", extra={"extra_data": {"tool": "tool1"}})
+        raise
 
 
 def tool2(input_data: ProjectPipelineWrapper) -> ProjectPipelineOutput:
