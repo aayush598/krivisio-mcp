@@ -5,3 +5,4 @@ GitPython
 numpy
 PyPDF2
 python-docx
+picologging
