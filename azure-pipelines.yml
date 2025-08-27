@@ -4,6 +4,8 @@ trigger:
 variables:
   APP_NAME: 'latex-ai-backend'
   ANOTHER_VAR: 'another_value'
+  # Note: SECRET_KEY and TEST1 must be defined in the pipeline UI as secret variables
+  # Their values will be masked in the output.
 
 pool:
   vmImage: ubuntu-latest
@@ -21,12 +23,24 @@ stages:
       displayName: 'Pull Docker Image'
       
     - script: |
-        echo "Running the Docker container..."
-        # Pass variables to Docker using the -e flag
+        echo "--- Printing all available environment variables ---"
+        printenv
+        echo "--- End of environment variables ---"
+      displayName: 'Print Environment Variables'
+      
+    - script: |
+        echo "Running the Docker container with variables:"
+        echo "APP_NAME: $(APP_NAME)"
+        echo "ANOTHER_VAR: $(ANOTHER_VAR)"
+        echo "TEST1: $(TEST1)"
+        echo "SECRET_KEY: $(SECRET_KEY)"
+        
+        # Corrected typo from ANOTHER2_VAR to ANOTHER_VAR
         docker run -d \
           -e APP_NAME=$(APP_NAME) \
           -e ANOTHER_VAR=$(ANOTHER_VAR) \
           -e SECRET_KEY=$(SECRET_KEY) \
+          -e TEST1=$(TEST1) \
           aayushgid/krivisio_ai:latest
         echo "Container should now be running."
       displayName: 'Run Docker Container'
