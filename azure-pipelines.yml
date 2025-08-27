@@ -5,11 +5,19 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: HelloWorld
-  displayName: Say Hello
+- stage: RunDockerContainer
+  displayName: Run the Docker container
   jobs:
-  - job: HelloJob
-    displayName: Print Hello
+  - job: RunJob
+    displayName: Pull and Run
     steps:
-    - script: echo Hello, World!
-      displayName: 'Echo Hello'
+    - script: |
+        echo "Pulling the Docker image..."
+        docker pull aayushgid/krivisio_ai:latest
+      displayName: 'Pull Docker Image'
+      
+    - script: |
+        echo "Running the Docker container..."
+        docker run -d aayushgid/krivisio_ai:latest
+        echo "Container should now be running."
+      displayName: 'Run Docker Container'
