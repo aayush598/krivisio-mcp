@@ -1,50 +1,15 @@
 trigger:
 - main
 
-variables:
-  imageName: krivisio-api
-  registry: myacr.azurecr.io  # <-- Replace with your ACR login server
-  tag: '$(Build.BuildId)'
-  containerAppName: krivisio-api
-  resourceGroup: krivisio-rg
-  environment: krivisio-env
-
 pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: BuildAndPush
-  displayName: Build and Push Docker image
+- stage: HelloWorld
+  displayName: Say Hello
   jobs:
-  - job: Build
-    displayName: Docker Build & Push
+  - job: HelloJob
+    displayName: Print Hello
     steps:
-    - task: Docker@2
-      inputs:
-        command: buildAndPush
-        containerRegistry: 'azure-krivisio'  # <-- Your ACR service connection name
-        repository: $(imageName)
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-
-- stage: Deploy
-  displayName: Deploy to Azure Container Apps
-  dependsOn: BuildAndPush
-  jobs:
-  - job: Deploy
-    displayName: Deploy App
-    steps:
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'azure-krivisio'  # <-- Your ARM service connection
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          az containerapp update \
-            --name $(containerAppName) \
-            --resource-group $(resourceGroup) \
-            --image $(registry)/$(imageName):$(tag) \
-            --environment $(environment) \
-            --ingress external \
-            --target-port 8000
+    - script: echo Hello, World!
+      displayName: 'Echo Hello'
